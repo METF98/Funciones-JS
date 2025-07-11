@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio JS</title>
+  </head>
+  <body>
+    <button onclick="evaluar_palabra()">Ejercicio 1 (Evaluar Palabra)</button>
+    <button onclick="filtrarPersonas()">Ejercicio 2 (Filtrar Personas)</button>
+
+    <script>
+      //Ejercicio 1
+      let evaluar_palabra = () => {
+        let palabra = prompt("Introduce el Texto a evaluar");
+        let palabrotas = ["tonto", "chispas","recorcholis", "rayos", "caracoles","cielos"]
+        if(palabra === null ){
+          return;
+        }else if(palabra === ""){
+          alert("Error, debe ingresar un Texto ");
+        }else{
+          palabra = palabra.toLowerCase()
+          let texto = eliminarAcentos(palabra).trim().split(" ");
+
+          for(let i = 0; i < palabrotas.length; i++){
+            for(let j = 0; j < texto.length; j++){
+              if(texto[j] == palabrotas[i]){
+                texto[j] = "****";
+              }
+            }
+          }
+          texto = texto.join(" ");
+          alert(texto);
+        }
+      }
+
+      let eliminarAcentos = (texto) =>{
+        let acentos = "áéíóú";
+        let noAcentos = "aeiou";
+        for (let i = 0; i < texto.length; i++) {
+          return texto = texto.replaceAll(acentos[i], noAcentos[i]);
+        }
+      }
+
+      //Ejercicio 2
+      let filtrarPersonas = () => {
+        let personas = [
+          { nombre: "Juan", edad: 25, pais: "España", sexo: "masculino" },
+          { nombre: "María", edad: 30, pais: "México", sexo: "femenino" },
+          { nombre: "Pedro", edad: 22, pais: "Argentina", sexo: "masculino" },
+          { nombre: "Ana", edad: 28, pais: "Chile", sexo: "femenino" },
+          { nombre: "Luis", edad: 35, pais: "España", sexo: "masculino" },
+        ];
+
+        console.log("Listado de personas: ");
+        personas.forEach(persona => console.log(persona.nombre + " " + persona.edad + " " + persona.pais + " " + persona.sexo));
+
+        let filtro = prompt("¿Que filtro desea aplicar? (1.- Mayores a 25 años, 2.- Hombres de Espana, 3.- Personalizado)");
+
+        if(filtro === null ){
+            console.clear();
+            return;
+          }else if(filtro === ""){
+            console.clear();
+            alert("Error, debe ingresar un Filtro");
+            return;
+          }else{
+
+            filtro = filtro.toLowerCase();
+
+            if(filtro == "mayores a 25 años" || filtro == "mayores de 25" || filtro == "1") {
+
+              let mayores25 = personas.filter(persona => persona.edad > 25);
+              console.log("Personas mayores de 25: ");
+              mayores25.forEach(mayores25 => console.log(mayores25.nombre + " " + mayores25.edad + " " + mayores25.pais + " " + mayores25.sexo));
+
+            } else if(filtro == "hombres de espana" || filtro == "hombres espanoles" || filtro == "espanoles" || filtro == "2") {
+
+              let espanolesHombres = personas.filter(persona => persona.pais === "España" && persona.sexo === "masculino");
+              console.log("Hombres de Espana: ");
+              espanolesHombres.forEach(espanolesHombres => console.log(espanolesHombres.nombre + " " + espanolesHombres.edad + " " + espanolesHombres.pais + " " + espanolesHombres.sexo));
+
+            } else if(filtro == "personalizado" || filtro == "3"){
+
+              let personalizado = prompt("¿Que filtro desea aplicar? (1.- Nombre, 2.- Edad, 3.- Pais, 4.- Genero)");
+              if(filtro === null ){
+                console.clear();
+                return;
+              }else if(filtro === ""){
+                console.clear();
+                alert("Error, debe ingresar un Filtro");
+                return;
+              }else{
+
+                personalizado = personalizado.toLowerCase();
+
+                if(personalizado == "nombre" || personalizado == "1"){
+                  dato = prompt("Ingrese el nombre que desea buscar");
+                  if(dato === null ){
+                    console.clear();
+                    return;
+                  }
+                  else if(dato === ""){
+                    console.clear();
+                    alert("Error, debe ingresar un nombre");
+                    return;
+                  }else if(typeof dato !== "string" || dato.length < 3 || dato.length > 20){
+                    console.clear();
+                    alert("Error, nombre no valido");
+                    return;
+                  }
+                }else if(personalizado == "edad" || personalizado == "2"){
+                  dato = prompt("Ingrese la edad que desea buscar");
+                  if(dato === null ){
+                    console.clear();
+                    return;
+                  }
+                  else if(dato === ""){
+                    console.clear();
+                    alert("Error, debe ingresar una edad");
+                    return;
+                  }else if(typeof dato !== "number" || dato < 0 || dato > 100){
+                    console.clear();
+                    alert("Error, edad no valida");
+                    return;
+                  }
+                }else if (personalizado == "pais" || personalizado == "3") {
+                  dato = prompt("Ingrese el pais que desea buscar");
+                  dato = Number(dato);
+                  if(dato === null ){
+                    console.clear();
+                    return;
+                  }
+                  else if(dato === ""){
+                    console.clear();
+                    alert("Error, debe ingresar un pais");
+                    return;
+                  }else if(typeof dato !== "string" || dato.length < 3 || dato.length > 20){
+                    console.clear();
+                    alert("Error, pais no valido");
+                    return;
+                  }
+                }else if (personalizado == "Genero" || personalizado == "4") {
+                  dato = prompt("Ingrese el Genero que desea buscar (Masculino o Femenino)");
+                  if(dato === null ){
+                    console.clear();
+                    return;
+                  }
+                  else if(dato === ""){
+                    console.clear();
+                    alert("Error, debe ingresar un genero");
+                    return;
+                  }else if(typeof dato !== "string" || dato !="masculino" || dato !="femenino" || dato !="Masculino" || dato !="Femenino"){
+                    console.clear();
+                    alert("Error, Genero no valido");
+                    return;
+                  }
+                }
+
+                filtroPersonalizado(personas,personalizado,dato);
+
+              }
+            }else{
+              console.clear();
+              alert("Error, el filtro ingresado no es valido");
+            }
+
+          }
+        }
+
+      let filtroPersonalizado = (lista,filtro,dato) =>{
+        if(typeof dato !== "string"){
+          if(lista.includes(dato)){
+            let listaFiltrada = personas.filter(lista=> lista.filtro.toLowerCase() === dato.toLowerCase());
+            cosole.log("lista con el "+ filtro + " " + nombre + ": ");
+            listaFiltrada.forEach(listaFiltrada => console.log(listaFiltrada.nombre + " " + listaFiltrada.edad + " " + listaFiltrada.pais + " " + listaFiltrada.sexo));
+          }else{
+            console.clear();
+            alert("No se encontro la persona con " + filtro + " igual a " + nombre + " en la lista");
+            return;
+          }
+        }else{
+          if(lista.includes(dato)){
+            let listaFiltrada = personas.filter(lista=> lista.filtro === dato);
+            cosole.log("lista con el "+ filtro + " " + nombre + ": ");
+            listaFiltrada.forEach(listaFiltrada => console.log(listaFiltrada.nombre + " " + listaFiltrada.edad + " " + listaFiltrada.pais + " " + listaFiltrada.sexo));
+          }else{
+            console.clear();
+            alert("No se encontro la persona con " + filtro + " igual a " + dato + " en la lista");
+            return;
+          }
+        }
+      }
+
+
+    </script>
+  </body>
+</html>
+
+<!-- Recorcholis como Rayos voy Realizar el tonto ejercicio de js, si no tengo ni idea de que chispas es  un metodo o que cielos significa array y mucho menos que caracoles es un arrow function -->
